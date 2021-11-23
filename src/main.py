@@ -76,6 +76,38 @@ def main():
     btn_refresh.grid(row=1, column=0, sticky="nsew")
 
     get_events()
+
+    event = {
+        'summary': 'Create Event Test',
+        'location': '2639 Lineville Rd, Green Bay, WI 54313',
+        'description': 'This is a test event, attempting to be created by a script',
+        'start': {
+            'dateTime': '2021-11-24T09:00:00-07:00',
+            'timeZone': 'America/Los_Angeles',
+        },
+        'end': {
+            'dateTime': '2021-11-24T17:00:00-07:00',
+            'timeZone': 'America/Los_Angeles',
+        },
+        'recurrence': [
+            'RRULE:FREQ=DAILY;COUNT=2'
+        ],
+        'attendees': [
+            {'email': 'lpage@example.com'},
+            {'email': 'sbrin@example.com'},
+        ],
+        'reminders': {
+            'useDefault': False,
+            'overrides': [
+                {'method': 'email', 'minutes': 24 * 60},
+                {'method': 'popup', 'minutes': 10},
+            ],
+        },
+    }
+
+    event = service.events().insert(calendarId='primary', body=event).execute()
+    print('Event created: %s' % (event.get('htmlLink')))
+
     window.mainloop()
 
 
