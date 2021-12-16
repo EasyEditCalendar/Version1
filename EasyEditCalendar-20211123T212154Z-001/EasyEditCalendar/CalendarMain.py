@@ -15,10 +15,10 @@ from google.oauth2.credentials import Credentials
 
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/calendar.readonly']
+SCOPES = ['https://www.googleapis.com/auth/calendar']
 
 
-def main():
+def login():
     """Shows basic usage of the Google Calendar API.
     Prints the start and name of the next 10 events on the user's calendar.
     """
@@ -40,6 +40,7 @@ def main():
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
 
+    global service
     service = build('calendar', 'v3', credentials=creds)
     
     return service
@@ -70,5 +71,34 @@ def getEvents():
         
     return text
 
+def createEvent(name, desc, startTime, endTime):
+    # Refer to the Python quickstart on how to setup the environment:
+    # https://developers.google.com/calendar/quickstart/python
+    # Change the scope to 'https://www.googleapis.com/auth/calendar' and delete any
+    # stored credentials.
+    
+    event = {
+      'summary': name,
+      'description': desc,
+      'start': {
+        'dateTime': startTime,
+        'timeZone': 'America/Chicago',
+      },
+      'end': {
+        'dateTime': endTime,
+        'timeZone': 'America/Chicago',
+      },
+      'reminders': {
+        'useDefault': True,
+      },
+    }
+
+    event = service.events().insert(calendarId='primary', body=event).execute()
+    print('Event created: %s' % (event.get('htmlLink')))
+
+
+def clearCalendar(cal):
+    service.calendars().clear(cal).execute()
+
 if __name__ == '__main__':
-    main()
+    login()
