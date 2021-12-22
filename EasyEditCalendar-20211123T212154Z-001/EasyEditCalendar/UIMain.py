@@ -459,14 +459,14 @@ def main():
     #    app = QtWidgets.QApplication.instance()
     
     app = QtWidgets.QApplication(sys.argv)
-    #form = LoginWindow()
-    form = MyMainAppWindow()
+    form = LoginWindow()
+    #form = MyMainAppWindow()
 
     apply_stylesheet(app, theme='dark_blue.xml')
 
     screen_dimensions = app.primaryScreen().availableGeometry().size()
-    app_width = screen_dimensions.width() * .80
-    app_height = screen_dimensions.height() * 0.80
+    app_width = screen_dimensions.width() * 0.40
+    app_height = screen_dimensions.height() * 0.60
     app_size = QSize(app_width, app_height)
     form.resize(app_size)
 
