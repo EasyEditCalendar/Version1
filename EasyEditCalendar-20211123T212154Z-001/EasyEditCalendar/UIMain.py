@@ -187,10 +187,10 @@ class LoginWindow(QtWidgets.QMainWindow, loginMenu.Ui_MainWindow):
 
 
 
-    def ___init___(self, parent=None):
+    def __init__(self, parent=None):
         
-        super(LoginWindow, self).___init___(parent)  
-        self.setupUi(loginMenu)
+        super(LoginWindow, self).__init__(parent)  
+        self.setupUi(self)
 
 
         self.GoogleLoginButton.clicked.connect(self.googleLogin)
@@ -200,6 +200,10 @@ class LoginWindow(QtWidgets.QMainWindow, loginMenu.Ui_MainWindow):
         #gets assigns tokens Etc. A.K.A Login
         login()
         self.main = MyMainAppWindow()
+
+
+
+
         self.main.show()
         self.close()
 
@@ -468,7 +472,7 @@ def main():
     app_width = screen_dimensions.width() * 0.40
     app_height = screen_dimensions.height() * 0.60
     app_size = QSize(app_width, app_height)
-    form.resize(app_size)
+    #form.resize(app_size)
 
     form.setWindowTitle("Easy Edit Calendar")
     form.show()
