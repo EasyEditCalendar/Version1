@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1072</width>
+    <width>1070</width>
     <height>531</height>
    </rect>
   </property>
@@ -20,11 +20,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_2">
+   <layout class="QHBoxLayout" name="horizontalLayout_7">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="movable">
        <bool>true</bool>
@@ -166,10 +166,18 @@
              </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="MonStart"/>
+             <widget class="QTimeEdit" name="MonStart">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="MonEnd"/>
+             <widget class="QTimeEdit" name="MonEnd">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -189,10 +197,18 @@
              </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="TueStart"/>
+             <widget class="QTimeEdit" name="TueStart">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="TueEnd"/>
+             <widget class="QTimeEdit" name="TueEnd">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -212,10 +228,18 @@
              </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="WedStart"/>
+             <widget class="QTimeEdit" name="WedStart">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="WedEnd"/>
+             <widget class="QTimeEdit" name="WedEnd">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -235,10 +259,18 @@
              </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="ThurStart"/>
+             <widget class="QTimeEdit" name="ThurStart">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="ThurEnd"/>
+             <widget class="QTimeEdit" name="ThurEnd">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -258,10 +290,18 @@
              </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="FriStart"/>
+             <widget class="QTimeEdit" name="FriStart">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="FriEnd"/>
+             <widget class="QTimeEdit" name="FriEnd">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -281,10 +321,18 @@
              </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="SatStart"/>
+             <widget class="QTimeEdit" name="SatStart">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="SatEnd"/>
+             <widget class="QTimeEdit" name="SatEnd">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -304,10 +352,21 @@
              </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="SunStart"/>
+             <widget class="QTimeEdit" name="SunStart">
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
             <item>
-             <widget class="QTimeEdit" name="SunEnd"/>
+             <widget class="QTimeEdit" name="SunEnd">
+              <property name="currentSection">
+               <enum>QDateTimeEdit::HourSection</enum>
+              </property>
+              <property name="displayFormat">
+               <string>h AP</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
@@ -342,6 +401,166 @@
         </item>
        </layout>
       </widget>
+      <widget class="QWidget" name="EmployeeList">
+       <property name="layoutDirection">
+        <enum>Qt::LeftToRight</enum>
+       </property>
+       <attribute name="title">
+        <string>Employee List</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <item>
+             <widget class="QListView" name="listView"/>
+            </item>
+            <item>
+             <layout class="QHBoxLayout" name="horizontalLayout_5">
+              <item>
+               <widget class="QPushButton" name="pushButton_2">
+                <property name="text">
+                 <string>Create Employee</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton">
+                <property name="text">
+                 <string>Delete Employee</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="spinBox_2"/>
+              </item>
+             </layout>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="WeeklyShifts">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <attribute name="title">
+        <string>Weekly Shifts</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_10">
+            <item>
+             <layout class="QVBoxLayout" name="Days">
+              <item>
+               <widget class="QLabel" name="ShiftDaysLabel">
+                <property name="text">
+                 <string>Day:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QComboBox" name="ShiftDays"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="StartTime">
+              <item>
+               <widget class="QLabel" name="label">
+                <property name="text">
+                 <string>Start Time:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTimeEdit" name="StartTimeShift">
+                <property name="displayFormat">
+                 <string>h AP</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="EndTime">
+              <item>
+               <widget class="QLabel" name="label_2">
+                <property name="text">
+                 <string>End Time:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QTimeEdit" name="EndTimeShift"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <layout class="QVBoxLayout" name="EmployeesNeeded">
+              <item>
+               <widget class="QLabel" name="Employees">
+                <property name="text">
+                 <string>Employees In Shift:</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QSpinBox" name="EmployeesInShift"/>
+              </item>
+             </layout>
+            </item>
+            <item>
+             <widget class="QPushButton" name="CreateNewShift">
+              <property name="text">
+               <string>Create New Shift</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="QListView" name="MondayShifts"/>
+            </item>
+            <item>
+             <widget class="QListView" name="TuesdayShifts"/>
+            </item>
+            <item>
+             <widget class="QListView" name="WedsdayShifts"/>
+            </item>
+            <item>
+             <widget class="QListView" name="ThursdayShifts"/>
+            </item>
+            <item>
+             <widget class="QListView" name="FridayShifts"/>
+            </item>
+            <item>
+             <widget class="QListView" name="SaturdayShifts"/>
+            </item>
+            <item>
+             <widget class="QListView" name="SundayShifts"/>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab">
+       <attribute name="title">
+        <string>Page</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -351,7 +570,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1072</width>
+     <width>1070</width>
      <height>22</height>
     </rect>
    </property>

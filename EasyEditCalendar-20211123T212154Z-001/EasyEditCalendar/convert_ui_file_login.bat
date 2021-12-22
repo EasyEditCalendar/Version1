@@ -1,0 +1,1 @@
+pyside6-uic login.ui > loginMenu.py

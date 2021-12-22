@@ -22,15 +22,13 @@ from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from qt_material import apply_stylesheet
 import mainwindow
+import loginMenu
 import sys
 
 
-#deletes token.json to force login each time
+#deletes token.json to force google login each time
 if os.path.exists("token.json"):
     os.remove("token.json")
-
-#gets assigns tokens Etc. A.K.A Login
-login()
 
 
 #Open EmployeeSaveFile
@@ -113,6 +111,7 @@ for x in range(line_count//18):
 
 
 
+
 def writeEmployeeInfo():
             print(len(employeesArray) - 1)
             writeFile = open("Employees.txt", "w")
@@ -156,6 +155,58 @@ def writeEmployeeInfo():
 
 
 
+
+
+class LoginWindow(QtWidgets.QMainWindow, loginMenu.Ui_MainWindow):
+    def append_message(self, message):
+        self.log_window.append(message + '\n')
+        self.log_window.verticalScrollBar().setValue(
+            self.log_window.verticalScrollBar().maximum())
+
+    def append_error(self, message):
+        message = "<br />".join(message.split("\n"))
+        self.log_window.append("<font color=\"FireBrick\">{}</font><br>".format(
+            message))
+        self.log_window.verticalScrollBar().setValue(
+            self.log_window.verticalScrollBar().maximum())
+
+    def append_warning(self, message):
+        message = "<br />".join(message.split("\n"))
+        self.log_window.append("<font color=\"Gold\">{}</font><br>".format(
+            message))
+        self.log_window.verticalScrollBar().setValue(
+            self.log_window.verticalScrollBar().maximum())
+
+    def append_info(self, message):
+        message = "<br />".join(message.split("\n"))
+        self.log_window.append("<font color=\"White\">{}</font><br>".format(
+            message))
+        self.log_window.verticalScrollBar().setValue(
+            self.log_window.verticalScrollBar().maximum())
+
+
+
+
+    def ___init___(self, parent=None):
+        
+        super(LoginWindow, self).___init___(parent)  
+        self.setupUi(loginMenu)
+
+
+        self.GoogleLoginButton.clicked.connect(self.googleLogin)
+
+
+    def googleLogin(self):
+        #gets assigns tokens Etc. A.K.A Login
+        login()
+        self.main = MyMainAppWindow()
+        self.main.show()
+        self.close()
+
+
+
+
+
 class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
     def append_message(self, message):
         self.log_window.append(message + '\n')
@@ -186,6 +237,8 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
     def __init__(self, parent=None):
         super(MyMainAppWindow, self).__init__(parent)  
         self.setupUi(self)
+
+
         self.createButton.clicked.connect(self.createEventClicked)
         self.Find.clicked.connect(self.findEmployeeClicked)
         self.SaveButton.clicked.connect(self.saveEmployeeInfo)
@@ -321,7 +374,7 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         
         #Write to files and Save Array
         self.saveEmployeeInfo()
-        writeEmployeeInfo()
+        self.employeeInfoUpdate()
         
 
         #Update Spin boxes
@@ -400,19 +453,23 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
 
 # Loads all the code written above and starts the application.
 def main():
-    if not QtWidgets.QApplication.instance():
-        app = QtWidgets.QApplication(sys.argv)
-    else:
-        app = QtWidgets.QApplication.instance()
+    #if not QtWidgets.QApplication.instance():
+    #    app = QtWidgets.QApplication(sys.argv)
+    #else:
+    #    app = QtWidgets.QApplication.instance()
     
-    #app = QtWidgets.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
+    #form = LoginWindow()
     form = MyMainAppWindow()
+
     apply_stylesheet(app, theme='dark_blue.xml')
+
     screen_dimensions = app.primaryScreen().availableGeometry().size()
     app_width = screen_dimensions.width() * .80
     app_height = screen_dimensions.height() * 0.80
     app_size = QSize(app_width, app_height)
     form.resize(app_size)
+
     form.setWindowTitle("Easy Edit Calendar")
     form.show()
     
