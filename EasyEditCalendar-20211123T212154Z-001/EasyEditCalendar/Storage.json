@@ -1,0 +1,93 @@
+{
+    "employees": [
+        {
+            "requestHrs": 12,
+            "email": "arohm8@gmail.com",
+            "name": "Andrew Rohm",
+            "rank": 1,
+            "availability": [
+                5,
+                13,
+                12,
+                13,
+                6,
+                13,
+                12,
+                13,
+                12,
+                13,
+                12,
+                13,
+                12,
+                14
+            ]
+        },
+        {
+            "requestHrs": 10,
+            "email": "dmrohm@gmail.com",
+            "name": "Dawn Rohm",
+            "rank": 2,
+            "availability": [
+                12,
+                13,
+                12,
+                13,
+                12,
+                13,
+                12,
+                13,
+                12,
+                13,
+                12,
+                13,
+                12,
+                13
+            ]
+        },
+        {
+            "requestHrs": 12,
+            "email": "greg.wolf@domain.com",
+            "name": "Greg Wolf",
+            "rank": 4,
+            "availability": [
+                5,
+                13,
+                12,
+                13,
+                6,
+                13,
+                12,
+                13,
+                12,
+                13,
+                12,
+                13,
+                12,
+                14
+            ]
+        },
+        {
+            "requestHrs": 0,
+            "email": "Sample@Company.com",
+            "name": "First Last",
+            "rank": 4,
+            "availability": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ]
+        }
+    ],
+    "shifts": []
+}

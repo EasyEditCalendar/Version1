@@ -11,11 +11,12 @@ import os
 
 class shift:
     
-    def __init__(self, numPeople, shiftAttend = [], start, end):
+    def __init__(self, numPeople, shiftAttend = [], date = 0, Start = 0, End = 0):
         self.numPeople = numPeople
         self.shiftAttend = shiftAttend
-        self.start = start
-        self.end = end
+        self.start = Start
+        self.end = End
+        self.date = date
         
         
     #testing Functions
@@ -32,13 +33,26 @@ class shift:
         return int(self.start)
     
     def getEnd(self):
-        return int(self.End)
+        return int(self.end)
+    
+    def getDate(self):
+        return int(self.date)
     
     def shiftFull(self):
         if self.numPeople == len(self.shiftAttend):
             return True
         else:
             return False
+
+    def getDictionary(self):
+        dictionary = {
+                    "numPeople" : int(self.numPeople),
+                    "date" : int(self.date),
+                    "start" : int(self.start),
+                    "end" : int(self.end),
+                    "people" : self.shiftAttend
+                }
+        return dictionary
         
         
     #editing functions

@@ -140,6 +140,15 @@ class employee:
     def getSunEnd(self):
         return self.sunEnd
     
+    def getDictionary(self):
+        dictionary = {
+                    "requestHrs" : self.Hr,
+                    "email" : self.email,
+                    "name" : self.name,
+                    "rank" : self.level,
+                    "availability" : [self.monStart, self.monEnd, self.tueStart, self.tueEnd, self.wedStart, self.wedEnd, self.thurStart, self.thurEnd, self.friStart, self.friEnd, self.satStart, self.satEnd, self.sunStart, self.sunEnd]
+                }
+        return dictionary
     
     #Set Methods
     def setHours(self, newHours):

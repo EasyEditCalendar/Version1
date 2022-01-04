@@ -54,9 +54,9 @@
         <item>
          <widget class="QPushButton" name="GoogleLoginButton">
           <property name="sizePolicy">
-           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
-            <horstretch>1</horstretch>
-            <verstretch>1</verstretch>
+           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
            </sizepolicy>
           </property>
           <property name="minimumSize">
@@ -67,8 +67,8 @@
           </property>
           <property name="maximumSize">
            <size>
-            <width>380</width>
-            <height>75</height>
+            <width>1000</width>
+            <height>100</height>
            </size>
           </property>
           <property name="palette">

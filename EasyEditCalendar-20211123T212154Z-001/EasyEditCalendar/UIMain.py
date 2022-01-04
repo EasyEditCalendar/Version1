@@ -16,14 +16,25 @@ import os
 #employees file
 from Employee import employee
 
+#shift file
+from Shift import shift
+
 #for UI
 from PySide6 import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from qt_material import apply_stylesheet
+
 import mainwindow
 import loginMenu
+
+#system imports
 import sys
+import json
+from collections import OrderedDict
+
+#For Encription
+from Crypto.Cipher import AES
 
 
 #deletes token.json to force google login each time
@@ -31,129 +42,80 @@ if os.path.exists("token.json"):
     os.remove("token.json")
 
 
-#Open EmployeeSaveFile
-read = open("Employees.txt", "r")
-#write = open("Employees.txt", "a")
-
+# Opening JSON file
+with open("Storage.json", "r") as inputfile:
+ 
+# returns JSON object as
+# a dictionary
+    data = json.load(inputfile, object_pairs_hook=OrderedDict)
+ 
+# Iterating through the json
+# list
 
 
 #finds and counts number of lines in file
-file = open("Employees.txt", "r")
 line_count = 0
-for line in file:
-    if line != "\n":
-        line_count += 1
-file.close()
+for i in data['employees']:
+    line_count+=1
 
 #creates array w/ x indexs based on number of employees found
 employeesArray = {}
-employeesArray[line_count//18] = employee(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+employeesArray[line_count - 1] = employee(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 
-#read txt file
-for x in range(line_count//18):
-    tempHr = read.readline().splitlines()
-    tempHr = int(tempHr[0])
-    
-    tempEmail = read.readline().splitlines() 
-    tempEmail = str(tempEmail[0])
-    
-    tempName = read.readline().splitlines() 
-    tempName = str(tempName[0])
-    
-    tempLevel = read.readline().splitlines()
-    tempLevel = int(tempLevel[0])
-    
-    tempMonStart = read.readline().splitlines() 
-    tempMonStart = int(tempMonStart[0])
-    
-    tempMonEnd = read.readline().splitlines() 
-    tempMonEnd = int(tempMonEnd[0])
-    
-    tempTueStart = read.readline().splitlines() 
-    tempTueStart = int(tempTueStart[0])
-    
-    tempTueEnd = read.readline().splitlines() 
-    tempTueEnd = int(tempTueEnd[0])
-    
-    tempWedStart = read.readline().splitlines() 
-    tempWedStart = int(tempWedStart[0])
-    
-    tempWedEnd = read.readline().splitlines() 
-    tempWedEnd = int(tempWedEnd[0])
-    
-    tempThurStart = read.readline().splitlines() 
-    tempThurStart = int(tempThurStart[0])
-    
-    tempThurEnd = read.readline().splitlines() 
-    tempThurEnd = int(tempThurEnd[0])
-    
-    tempFriStart = read.readline().splitlines() 
-    tempFriStart = int(tempFriStart[0])
-    
-    tempFriEnd = read.readline().splitlines() 
-    tempFriEnd = int(tempFriEnd[0])
-    
-    tempSatStart = read.readline().splitlines() 
-    tempSatStart = int(tempSatStart[0])
-    
-    tempSatEnd = read.readline().splitlines() 
-    tempSatEnd = int(tempSatEnd[0])
-    
-    tempSunStart = read.readline().splitlines() 
-    tempSunStart = int(tempSunStart[0])
-    
-    tempSunEnd = read.readline().splitlines() 
-    tempSunEnd = int(tempSunEnd[0])
-    
-   #pass read info to array
-    employeesArray[x] = employee(x, tempHr, tempEmail, tempName, tempMonStart, tempMonEnd, tempTueStart, tempTueEnd, tempWedStart, tempWedEnd, tempThurStart, tempThurEnd, tempFriStart, tempFriEnd, tempSatStart, tempSatEnd, tempSunStart, tempSunEnd, tempLevel)
 
+line_count = 0
+for i in data['shifts']:
+    line_count+=1
+
+shiftsArray = {}
+empty = []
+shiftsArray[line_count - 1] = shift(0, empty, 0, 0)
+
+
+count = 0
+
+for i in data['employees']:
+    print(i)
+    availability = i['availability']
+    employeesArray[count] = employee(count, i['requestHrs'], i['email'], i['name'], availability[0], availability[1], availability[2], availability[3], availability[4], availability[5], availability[6], availability[7], availability[8], availability[9], availability[10], availability[11], availability[12], availability[13], i['rank'])
+    count = count + 1
+
+count = 0
+
+for i in data['shifts']:
+    print(i)
+    people = i['people']
+    shiftsArray[count] = shift(i['numPeople'], people, i['date'], i['start'], i['end'])
+    count = count + 1
 
 
 
 def writeEmployeeInfo():
-            print(len(employeesArray) - 1)
-            writeFile = open("Employees.txt", "w")
+            #sets up output for .json file
+            output = {
+                "employees" : [
+                ],
+                "shifts" : [
+                 ]
+            }
             for x in range(0, len(employeesArray) - 1):
-#                tempHr = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getHours()), '\n'])
-#                tempEmail = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getEmail()), '\n'])
-#                tempName = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getName()), '\n'])
-#                tempMonStart = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getLevel()), '\n'])
                 
-                writeFile.writelines([str(employeesArray[x].getMonStart()), '\n'])
-#                tempMonEnd = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getMonEnd()), '\n'])
-#                tempTueStart = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getTueStart()), '\n'])
-#                tempTueEnd = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getTueEnd()), '\n'])
-#                tempWedStart = read.readline().spl        model = QtGui.QStandardItemModel()
-                writeFile.writelines([str(employeesArray[x].getWedStart()), '\n'])
-#                tempWedEnd = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getWedEnd()), '\n'])
-#                tempThurStart = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getThurStart()), '\n'])
-#                tempThurEnd = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getThurEnd()), '\n'])
-#                tempFriStart = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getFriStart()), '\n'])
-#                tempFriEnd = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getFriEnd()), '\n'])
-#                tempSatStart = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getSatStart()), '\n'])
-#                tempSatEnd = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getSatEnd()), '\n'])
-#                tempSunStart = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getSunStart()), '\n'])
-#                tempSunEnd = read.readline().splitlines() 
-                writeFile.writelines([str(employeesArray[x].getSunEnd()), '\n'])
+                output["employees"].append(employeesArray[x].getDictionary())
+                print(output)
+  
 
-
+            for x in range(0, len(shiftsArray) - 1):
+                
+                output["shifts"].append(shiftsArray[x].getDictionary())
+                print(output)
+            
+            # Serializing json 
+            json_object = json.dumps(output, indent = 4)
+  
+            # Writing to sample.json
+            with open("Storage.json", "w") as outfile:
+                outfile.write(json_object)  
 
 
 
@@ -201,9 +163,7 @@ class LoginWindow(QtWidgets.QMainWindow, loginMenu.Ui_MainWindow):
         login()
         self.main = MyMainAppWindow()
 
-
-
-
+        self.main.setWindowTitle("Easy Edit Calendar")
         self.main.show()
         self.close()
 
@@ -392,7 +352,7 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.tabWidget.setCurrentIndex(1)
         
     def deleteEmployee(self):
-        deleteID = self.spinBox_2.value() - 1
+        deleteID = self.spinBox_2.value()
         for x in range(deleteID, len(employeesArray) - 2):
             employeesArray[x] = employeesArray[x + 1]
             
@@ -414,8 +374,8 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.ID.setValue(valueID)
         self.ID.setMinimum(valueID)
         self.ID.setMaximum(valueID)
-        self.email.setText(employeesArray[valueID].getEmail())
-        self.Name.setText(employeesArray[valueID].getName())
+        self.email.setText(str(employeesArray[valueID].getEmail()))
+        self.Name.setText(str(employeesArray[valueID].getName()))
         self.HrsReq.setValue(employeesArray[valueID].getHours())
         
         #Hours 
@@ -469,10 +429,10 @@ def main():
     apply_stylesheet(app, theme='dark_blue.xml')
 
     screen_dimensions = app.primaryScreen().availableGeometry().size()
-    app_width = screen_dimensions.width() * 0.40
-    app_height = screen_dimensions.height() * 0.60
+    app_width = screen_dimensions.width() * .30
+    app_height = screen_dimensions.height() * 0.40
     app_size = QSize(app_width, app_height)
-    #form.resize(app_size)
+    form.resize(app_size)
 
     form.setWindowTitle("Easy Edit Calendar")
     form.show()
