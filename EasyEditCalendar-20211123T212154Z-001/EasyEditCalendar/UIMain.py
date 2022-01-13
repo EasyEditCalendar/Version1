@@ -120,8 +120,6 @@ for i in data['shifts']:
     shiftsArray[count] = shift(i['numPeople'], people, i['date'], i['start'], i['end'])
     count = count + 1
 
-
-
 def writeEmployeeInfo():
             #sets up output for .json file
             output = {
@@ -170,6 +168,49 @@ def writeEmployeeInfo():
             with open('EStorage.json', 'wb') as encrypted_file:   
                 encrypted_file.write(encrypted) 
 
+
+#Sorts Shifts Array by Day from monday to sunday
+def sortShiftsArray():
+    count = 0
+    shiftsArraySort = shiftsArray
+
+    for x in range(0, len(shiftsArray)):
+        if shiftsArray[x].getDate() == 0:
+            shiftsArraySort[count] = shiftsArray[x]
+            count = count + 1
+
+    for x in range(0, len(shiftsArray)):
+        if shiftsArray[x].getDate() == 1:
+            shiftsArraySort[count] = shiftsArray[x]
+            count = count + 1
+
+    for x in range(0, len(shiftsArray)):
+        if shiftsArray[x].getDate() == 2:
+            shiftsArraySort[count] = shiftsArray[x]
+            count = count + 1
+
+    for x in range(0, len(shiftsArray)):
+        if shiftsArray[x].getDate() == 3:
+            shiftsArraySort[count] = shiftsArray[x]
+            count = count + 1
+
+    for x in range(0, len(shiftsArray)):
+        if shiftsArray[x].getDate() == 4:
+            shiftsArraySort[count] = shiftsArray[x]
+            count = count + 1
+
+    for x in range(0, len(shiftsArray)):
+        if shiftsArray[x].getDate() == 5:
+            shiftsArraySort[count] = shiftsArray[x]
+            count = count + 1
+
+    for x in range(0, len(shiftsArray)):
+        if shiftsArray[x].getDate() == 6:
+            shiftsArraySort[count] = shiftsArray[x]
+            count = count + 1
+    
+    print(shiftsArraySort)
+    shiftsArray.update(shiftsArraySort)
 
 
 class LoginWindow(QtWidgets.QMainWindow, loginMenu.Ui_MainWindow):
@@ -255,6 +296,8 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         super(MyMainAppWindow, self).__init__(parent)  
         self.setupUi(self)
 
+        self.shiftIndex = 0
+
 
         self.createButton.clicked.connect(self.createEventClicked)
         self.Find.clicked.connect(self.findEmployeeClicked)
@@ -263,8 +306,28 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.pushButton.clicked.connect(self.deleteEmployee)
         self.listView.clicked.connect(self.updateEmployeeListIndex)
         self.CreateNewShift.clicked.connect(self.createNewShift)
+        self.SaveShifts.clicked.connect(self.shiftSaveClicked)
+
+        #Shifts Clicked
+        self.MondayShifts.clicked.connect(self.monListViewClicked)
+        self.TuesdayShifts.clicked.connect(self.tueListViewClicked)
+        self.WedsdayShifts.clicked.connect(self.wedListViewClicked)
+        self.ThursdayShifts.clicked.connect(self.thurListViewClicked)
+        self.FridayShifts.clicked.connect(self.friListViewClicked)
+        self.SaturdayShifts.clicked.connect(self.satListViewClicked)
+        self.SundayShifts.clicked.connect(self.sunListViewClicked)
         
-        
+
+        #set up QComboBox
+        self.ShiftDays.addItem('Monday')
+        self.ShiftDays.addItem('Tuesday')
+        self.ShiftDays.addItem('Wedsday')
+        self.ShiftDays.addItem('Thursday')
+        self.ShiftDays.addItem('Friday')
+        self.ShiftDays.addItem('Saturday')
+        self.ShiftDays.addItem('Sunday')
+
+
         self.employeeInfoUpdate()
         
         #Testing View List
@@ -319,25 +382,25 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         print(len(shiftsArray))
         for i in range(0, len(shiftsArray)):
             if shiftsArray[i].getDate() == 0:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 monShifts.appendRow(item)    
             elif shiftsArray[i].getDate() == 1:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 tueShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 2:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 wedShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 3:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 thurShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 4:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 friShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 5:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 satShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 6:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 sunShifts.appendRow(item)
             else:
                 print('index:' + i + 'does not have a valid date')
@@ -429,6 +492,12 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
             model.appendRow(item)
         
 
+        self.updateShiftInfo()
+        
+        writeEmployeeInfo()
+
+
+    def updateShiftInfo(self):
         monShifts = QtGui.QStandardItemModel() 
         self.MondayShifts.setModel(monShifts)
 
@@ -455,31 +524,29 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         print(len(shiftsArray))
         for i in range(0, len(shiftsArray)):
             if shiftsArray[i].getDate() == 0:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 monShifts.appendRow(item)    
             elif shiftsArray[i].getDate() == 1:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 tueShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 2:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 wedShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 3:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 thurShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 4:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 friShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 5:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 satShifts.appendRow(item)
             elif shiftsArray[i].getDate() == 6:
-                item = QtGui.QStandardItem('start/end: ' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
                 sunShifts.appendRow(item)
             else: 
                 print('index:' + i + 'does not have a valid date')
         
-        writeEmployeeInfo()
-
 
     def findEmployeeClicked(self):  
         self.saveEmployeeInfo()
@@ -603,7 +670,567 @@ class MyMainAppWindow(QtWidgets.QMainWindow, mainwindow.Ui_MainWindow):
         self.SunStart.setTime(tempTime)
         tempTime = QTime(employeesArray[valueID].getSunEnd(), 0, 0)
         self.SunEnd.setTime(tempTime)
-       
+    
+
+
+
+
+
+    #This Shift QListViews Clicked Section
+    def shiftSaveClicked(self):
+
+        #print('index' + str(self.shiftIndex))
+        shiftsArray[self.shiftIndex].setStart(self.StartTimeShift.time().hour())
+        #print('start:' + str(self.StartTimeShift.time().hour()))
+
+        shiftsArray[self.shiftIndex].setEnd(self.EndTimeShift.time().hour())
+        #print('end:' + str(self.EndTimeShift.time().hour()))
+
+        shiftsArray[self.shiftIndex].setDate(self.ShiftDays.currentIndex())
+
+        shiftsArray[self.shiftIndex].setNumPeople(self.EmployeesInShift.value())
+
+
+        self.updateShiftInfo()
+
+
+
+
+    def listViewClicked(self, selectedIndex):
+        self.EmployeesInShift.setValue(shiftsArray[selectedIndex].getNumPeople())
+
+        tempTime = QTime(shiftsArray[selectedIndex].getStart(), 0, 0)
+        self.StartTimeShift.setTime(tempTime)
+
+        tempTime = QTime(shiftsArray[selectedIndex].getEnd(), 0, 0)
+        self.EndTimeShift.setTime(tempTime)
+
+        self.shiftIndex = selectedIndex
+
+
+        print(selectedIndex)
+
+
+
+
+
+    def monListViewClicked(self):
+        sortShiftsArray()
+        selectedIndex = self.MondayShifts.currentIndex().row()
+
+        self.ShiftDays.setCurrentIndex(0)
+
+        self.listViewClicked(selectedIndex)
+
+
+        #monShifts = QtGui.QStandardItemModel() 
+        #self.MondayShifts.setModel(monShifts)
+
+        tueShifts = QtGui.QStandardItemModel() 
+        self.TuesdayShifts.setModel(tueShifts)
+
+        wedShifts = QtGui.QStandardItemModel() 
+        self.WedsdayShifts.setModel(wedShifts)
+
+        thurShifts = QtGui.QStandardItemModel() 
+        self.ThursdayShifts.setModel(thurShifts)
+
+        friShifts = QtGui.QStandardItemModel() 
+        self.FridayShifts.setModel(friShifts)
+
+        satShifts = QtGui.QStandardItemModel() 
+        self.SaturdayShifts.setModel(satShifts)
+
+        sunShifts = QtGui.QStandardItemModel() 
+        self.SundayShifts.setModel(sunShifts)
+
+
+        #set shifts/update shifts
+        print(len(shiftsArray))
+        for i in range(0, len(shiftsArray)):
+            if shiftsArray[i].getDate() == 0:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                #monShifts.appendRow(item) 
+            elif shiftsArray[i].getDate() == 1:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                tueShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 2:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                wedShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 3:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                thurShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 4:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                friShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 5:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                satShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 6:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                sunShifts.appendRow(item)
+            else: 
+                print('index:' + i + 'does not have a valid date')
+         
+
+
+
+    def tueListViewClicked(self):
+        sortShiftsArray()
+
+        self.ShiftDays.setCurrentIndex(1)
+        count = 0
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 0:
+                count = count + 1
+
+        selectedIndex = self.TuesdayShifts.currentIndex().row() + count
+
+        self.listViewClicked(selectedIndex)
+
+
+        monShifts = QtGui.QStandardItemModel() 
+        self.MondayShifts.setModel(monShifts)
+
+        #tueShifts = QtGui.QStandardItemModel() 
+        #self.TuesdayShifts.setModel(tueShifts)
+
+        wedShifts = QtGui.QStandardItemModel() 
+        self.WedsdayShifts.setModel(wedShifts)
+
+        thurShifts = QtGui.QStandardItemModel() 
+        self.ThursdayShifts.setModel(thurShifts)
+
+        friShifts = QtGui.QStandardItemModel() 
+        self.FridayShifts.setModel(friShifts)
+
+        satShifts = QtGui.QStandardItemModel() 
+        self.SaturdayShifts.setModel(satShifts)
+
+        sunShifts = QtGui.QStandardItemModel() 
+        self.SundayShifts.setModel(sunShifts)
+
+        #set shifts/update shifts
+        print(len(shiftsArray))
+        for i in range(0, len(shiftsArray)):
+            if shiftsArray[i].getDate() == 0:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                monShifts.appendRow(item) 
+            elif shiftsArray[i].getDate() == 1:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                #tueShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 2:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                wedShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 3:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                thurShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 4:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                friShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 5:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                satShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 6:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                sunShifts.appendRow(item)
+            else: 
+                print('index:' + i + 'does not have a valid date')
+
+
+
+    def wedListViewClicked(self):
+        sortShiftsArray()
+
+        self.ShiftDays.setCurrentIndex(2)
+
+        count = 0
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 0:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 1:
+                count = count + 1
+
+
+
+
+        selectedIndex = self.WedsdayShifts.currentIndex().row() + count
+
+        self.listViewClicked(selectedIndex)
+
+        monShifts = QtGui.QStandardItemModel() 
+        self.MondayShifts.setModel(monShifts)
+
+        tueShifts = QtGui.QStandardItemModel() 
+        self.TuesdayShifts.setModel(tueShifts)
+
+        #wedShifts = QtGui.QStandardItemModel() 
+        #self.WedsdayShifts.setModel(wedShifts)
+
+        thurShifts = QtGui.QStandardItemModel() 
+        self.ThursdayShifts.setModel(thurShifts)
+
+        friShifts = QtGui.QStandardItemModel() 
+        self.FridayShifts.setModel(friShifts)
+
+        satShifts = QtGui.QStandardItemModel() 
+        self.SaturdayShifts.setModel(satShifts)
+
+        sunShifts = QtGui.QStandardItemModel() 
+        self.SundayShifts.setModel(sunShifts)
+
+
+        #set shifts/update shifts
+        print(len(shiftsArray))
+        for i in range(0, len(shiftsArray)):
+            if shiftsArray[i].getDate() == 0:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                monShifts.appendRow(item) 
+            elif shiftsArray[i].getDate() == 1:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                tueShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 2:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                #wedShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 3:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                thurShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 4:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                friShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 5:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                satShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 6:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                sunShifts.appendRow(item)
+            else: 
+                print('index:' + i + 'does not have a valid date')
+
+
+    def thurListViewClicked(self):
+        sortShiftsArray()
+
+        self.ShiftDays.setCurrentIndex(3)
+
+        count = 0
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 0:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 1:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 2:
+                count = count + 1
+
+
+        selectedIndex = self.ThursdayShifts.currentIndex().row() + count
+
+        self.listViewClicked(selectedIndex)
+
+
+        monShifts = QtGui.QStandardItemModel() 
+        self.MondayShifts.setModel(monShifts)
+
+        tueShifts = QtGui.QStandardItemModel() 
+        self.TuesdayShifts.setModel(tueShifts)
+
+        wedShifts = QtGui.QStandardItemModel() 
+        self.WedsdayShifts.setModel(wedShifts)
+
+        #thurShifts = QtGui.QStandardItemModel() 
+        #self.ThursdayShifts.setModel(thurShifts)
+
+        friShifts = QtGui.QStandardItemModel() 
+        self.FridayShifts.setModel(friShifts)
+
+        satShifts = QtGui.QStandardItemModel() 
+        self.SaturdayShifts.setModel(satShifts)
+
+        sunShifts = QtGui.QStandardItemModel() 
+        self.SundayShifts.setModel(sunShifts)
+
+
+        #set shifts/update shifts
+        print(len(shiftsArray))
+        for i in range(0, len(shiftsArray)):
+            if shiftsArray[i].getDate() == 0:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                monShifts.appendRow(item) 
+            elif shiftsArray[i].getDate() == 1:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                tueShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 2:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                wedShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 3:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                #thurShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 4:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                friShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 5:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                satShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 6:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                sunShifts.appendRow(item)
+            else: 
+                print('index:' + i + 'does not have a valid date')  
+
+    def friListViewClicked(self):
+        sortShiftsArray()
+
+        self.ShiftDays.setCurrentIndex(4)
+
+        count = 0
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 0:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 1:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 2:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 3:
+                count = count + 1
+
+
+
+        selectedIndex = self.FridayShifts.currentIndex().row() + count
+
+        self.listViewClicked(selectedIndex)
+
+
+        monShifts = QtGui.QStandardItemModel() 
+        self.MondayShifts.setModel(monShifts)
+
+        tueShifts = QtGui.QStandardItemModel() 
+        self.TuesdayShifts.setModel(tueShifts)
+
+        wedShifts = QtGui.QStandardItemModel() 
+        self.WedsdayShifts.setModel(wedShifts)
+
+        thurShifts = QtGui.QStandardItemModel() 
+        self.ThursdayShifts.setModel(thurShifts)
+
+        #friShifts = QtGui.QStandardItemModel() 
+        #self.FridayShifts.setModel(friShifts)
+
+        satShifts = QtGui.QStandardItemModel() 
+        self.SaturdayShifts.setModel(satShifts)
+
+        sunShifts = QtGui.QStandardItemModel() 
+        self.SundayShifts.setModel(sunShifts)
+
+
+        #set shifts/update shifts
+        print(len(shiftsArray))
+        for i in range(0, len(shiftsArray)):
+            if shiftsArray[i].getDate() == 0:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                monShifts.appendRow(item) 
+            elif shiftsArray[i].getDate() == 1:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                tueShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 2:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                wedShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 3:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                thurShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 4:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                #friShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 5:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                satShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 6:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                sunShifts.appendRow(item)
+            else: 
+                print('index:' + i + 'does not have a valid date')
+
+
+    def satListViewClicked(self):
+        sortShiftsArray()
+
+        self.ShiftDays.setCurrentIndex(5)
+
+        count = 0
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 0:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 1:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 2:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 3:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 4: 
+                count = count + 1
+
+        selectedIndex = self.SaturdayShifts.currentIndex().row() + count
+
+        self.listViewClicked(selectedIndex)
+
+
+        monShifts = QtGui.QStandardItemModel() 
+        self.MondayShifts.setModel(monShifts)
+
+        tueShifts = QtGui.QStandardItemModel() 
+        self.TuesdayShifts.setModel(tueShifts)
+
+        wedShifts = QtGui.QStandardItemModel() 
+        self.WedsdayShifts.setModel(wedShifts)
+
+        thurShifts = QtGui.QStandardItemModel() 
+        self.ThursdayShifts.setModel(thurShifts)
+
+        friShifts = QtGui.QStandardItemModel() 
+        self.FridayShifts.setModel(friShifts)
+
+        #satShifts = QtGui.QStandardItemModel() 
+        #self.SaturdayShifts.setModel(satShifts)
+
+        sunShifts = QtGui.QStandardItemModel() 
+        self.SundayShifts.setModel(sunShifts)
+
+
+        #set shifts/update shifts
+        print(len(shiftsArray))
+        for i in range(0, len(shiftsArray)):
+            if shiftsArray[i].getDate() == 0:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                monShifts.appendRow(item) 
+            elif shiftsArray[i].getDate() == 1:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                tueShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 2:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                wedShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 3:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                thurShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 4:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                friShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 5:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                #satShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 6:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                sunShifts.appendRow(item)
+            else: 
+                print('index:' + i + 'does not have a valid date')
+
+
+    def sunListViewClicked(self):
+        sortShiftsArray()
+
+        self.ShiftDays.setCurrentIndex(6)
+
+        count = 0
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 0:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 1:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 2:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 3:
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 4: 
+                count = count + 1
+
+        for x in range(0, len(shiftsArray)):
+            if shiftsArray[x].getDate() == 5:
+                count = count + 1
+
+
+
+        selectedIndex = self.SundayShifts.currentIndex().row() + count
+
+        self.listViewClicked(selectedIndex)
+
+
+        monShifts = QtGui.QStandardItemModel() 
+        self.MondayShifts.setModel(monShifts)
+
+        tueShifts = QtGui.QStandardItemModel() 
+        self.TuesdayShifts.setModel(tueShifts)
+
+        wedShifts = QtGui.QStandardItemModel() 
+        self.WedsdayShifts.setModel(wedShifts)
+
+        thurShifts = QtGui.QStandardItemModel() 
+        self.ThursdayShifts.setModel(thurShifts)
+
+        friShifts = QtGui.QStandardItemModel() 
+        self.FridayShifts.setModel(friShifts)
+
+        satShifts = QtGui.QStandardItemModel() 
+        self.SaturdayShifts.setModel(satShifts)
+
+        #sunShifts = QtGui.QStandardItemModel() 
+        #self.SundayShifts.setModel(sunShifts)
+
+
+        #set shifts/update shifts
+        print(len(shiftsArray))
+        for i in range(0, len(shiftsArray)):
+            if shiftsArray[i].getDate() == 0:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                monShifts.appendRow(item) 
+            elif shiftsArray[i].getDate() == 1:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                tueShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 2:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                wedShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 3:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                thurShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 4:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                friShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 5:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                satShifts.appendRow(item)
+            elif shiftsArray[i].getDate() == 6:
+                item = QtGui.QStandardItem(str(i) + ': start/end:' + str(shiftsArray[i].getStart()) + '/' + str(shiftsArray[i].getEnd())+ '\nstaff: ' + str(shiftsArray[i].getNumPeople()))
+                #sunShifts.appendRow(item)
+            else: 
+                print('index:' + i + 'does not have a valid date')
+
+
+
 
 # Loads all the code written above and starts the application.
 def main():

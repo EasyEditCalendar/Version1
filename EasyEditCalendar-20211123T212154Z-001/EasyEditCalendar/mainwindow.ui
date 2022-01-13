@@ -544,13 +544,6 @@
           <item>
            <layout class="QHBoxLayout" name="horizontalLayout_12">
             <item>
-             <widget class="QLabel" name="label_9">
-              <property name="text">
-               <string>Sunday:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
              <widget class="QLabel" name="label_8">
               <property name="text">
                <string>Monday:</string>
@@ -589,6 +582,13 @@
              <widget class="QLabel" name="label_3">
               <property name="text">
                <string>Saturday:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>Sunday:</string>
               </property>
              </widget>
             </item>
@@ -638,7 +638,7 @@
      <x>0</x>
      <y>0</y>
      <width>1102</width>
-     <height>26</height>
+     <height>22</height>
     </rect>
    </property>
   </widget>

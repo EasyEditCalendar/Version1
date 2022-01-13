@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1070, 531)
+        MainWindow.resize(1102, 531)
         MainWindow.setMaximumSize(QSize(16777215, 16777215))
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
@@ -368,6 +368,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
         self.horizontalLayout_10 = QHBoxLayout()
         self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.SaveShifts = QPushButton(self.WeeklyShifts)
+        self.SaveShifts.setObjectName(u"SaveShifts")
+
+        self.horizontalLayout_10.addWidget(self.SaveShifts)
+
         self.Days = QVBoxLayout()
         self.Days.setObjectName(u"Days")
         self.ShiftDaysLabel = QLabel(self.WeeklyShifts)
@@ -428,6 +433,11 @@ class Ui_MainWindow(object):
 
         self.horizontalLayout_10.addLayout(self.EmployeesNeeded)
 
+        self.pushButton_3 = QPushButton(self.WeeklyShifts)
+        self.pushButton_3.setObjectName(u"pushButton_3")
+
+        self.horizontalLayout_10.addWidget(self.pushButton_3)
+
         self.CreateNewShift = QPushButton(self.WeeklyShifts)
         self.CreateNewShift.setObjectName(u"CreateNewShift")
 
@@ -435,6 +445,46 @@ class Ui_MainWindow(object):
 
 
         self.verticalLayout_5.addLayout(self.horizontalLayout_10)
+
+        self.horizontalLayout_12 = QHBoxLayout()
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.label_8 = QLabel(self.WeeklyShifts)
+        self.label_8.setObjectName(u"label_8")
+
+        self.horizontalLayout_12.addWidget(self.label_8)
+
+        self.label_7 = QLabel(self.WeeklyShifts)
+        self.label_7.setObjectName(u"label_7")
+
+        self.horizontalLayout_12.addWidget(self.label_7)
+
+        self.label_6 = QLabel(self.WeeklyShifts)
+        self.label_6.setObjectName(u"label_6")
+
+        self.horizontalLayout_12.addWidget(self.label_6)
+
+        self.label_5 = QLabel(self.WeeklyShifts)
+        self.label_5.setObjectName(u"label_5")
+
+        self.horizontalLayout_12.addWidget(self.label_5)
+
+        self.label_4 = QLabel(self.WeeklyShifts)
+        self.label_4.setObjectName(u"label_4")
+
+        self.horizontalLayout_12.addWidget(self.label_4)
+
+        self.label_3 = QLabel(self.WeeklyShifts)
+        self.label_3.setObjectName(u"label_3")
+
+        self.horizontalLayout_12.addWidget(self.label_3)
+
+        self.label_9 = QLabel(self.WeeklyShifts)
+        self.label_9.setObjectName(u"label_9")
+
+        self.horizontalLayout_12.addWidget(self.label_9)
+
+
+        self.verticalLayout_5.addLayout(self.horizontalLayout_12)
 
         self.horizontalLayout_8 = QHBoxLayout()
         self.horizontalLayout_8.setObjectName(u"horizontalLayout_8")
@@ -489,12 +539,12 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QMenuBar(MainWindow)
         self.menubar.setObjectName(u"menubar")
-        self.menubar.setGeometry(QRect(0, 0, 1070, 22))
+        self.menubar.setGeometry(QRect(0, 0, 1102, 22))
         MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
 
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
 
 
         QMetaObject.connectSlotsByName(MainWindow)
@@ -537,12 +587,21 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"Create Employee", None))
         self.pushButton.setText(QCoreApplication.translate("MainWindow", u"Delete Employee", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.EmployeeList), QCoreApplication.translate("MainWindow", u"Employee List", None))
+        self.SaveShifts.setText(QCoreApplication.translate("MainWindow", u"Save", None))
         self.ShiftDaysLabel.setText(QCoreApplication.translate("MainWindow", u"Day:", None))
         self.label.setText(QCoreApplication.translate("MainWindow", u"Start Time:", None))
         self.StartTimeShift.setDisplayFormat(QCoreApplication.translate("MainWindow", u"h AP", None))
         self.label_2.setText(QCoreApplication.translate("MainWindow", u"End Time:", None))
         self.Employees.setText(QCoreApplication.translate("MainWindow", u"Employees In Shift:", None))
+        self.pushButton_3.setText(QCoreApplication.translate("MainWindow", u"Delete Shift", None))
         self.CreateNewShift.setText(QCoreApplication.translate("MainWindow", u"Create New Shift", None))
+        self.label_8.setText(QCoreApplication.translate("MainWindow", u"Monday:", None))
+        self.label_7.setText(QCoreApplication.translate("MainWindow", u"Tuesday:", None))
+        self.label_6.setText(QCoreApplication.translate("MainWindow", u"Wedsday:", None))
+        self.label_5.setText(QCoreApplication.translate("MainWindow", u"Thursday:", None))
+        self.label_4.setText(QCoreApplication.translate("MainWindow", u"Friday:", None))
+        self.label_3.setText(QCoreApplication.translate("MainWindow", u"Saturday:", None))
+        self.label_9.setText(QCoreApplication.translate("MainWindow", u"Sunday:", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.WeeklyShifts), QCoreApplication.translate("MainWindow", u"Weekly Shifts", None))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), QCoreApplication.translate("MainWindow", u"Page", None))
     # retranslateUi

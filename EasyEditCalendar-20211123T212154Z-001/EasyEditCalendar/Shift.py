@@ -60,3 +60,16 @@ class shift:
         if self.shiftfull == False:
             workers = len(self.shiftAttend)
             self.shiftAttend[workers] = person
+
+    #set functions
+    def setNumPeople(self, input):
+        self.numPeople = input
+    
+    def setStart(self, input):
+        self.start = input
+    
+    def setEnd(self, input):
+        self.end = input
+    
+    def setDate(self, input):
+        self.date = input
