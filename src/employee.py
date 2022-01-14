@@ -1,100 +1,96 @@
-#Imports
 import os
 
 
-#start Employee Class
-class employee:
+class Employee:
+    def __init__(self, ID, Hr, email, name, monStart, monEnd, tueStart, tueEnd, wedStart, wedEnd, thurStart, thurEnd,
+                 friStart, friEnd, satStart, satEnd, sunStart, sunEnd, level):
+        # base Info
+        self.id = ID
+        self.Hr = Hr
+        self.email = email
+        self.name = str(name)
+        self.level = level
 
-    #defaults
-    def __init__(self, ID, Hr, email, name, monStart, monEnd, tueStart, tueEnd, wedStart, wedEnd, thurStart, thurEnd, friStart, friEnd, satStart, satEnd, sunStart, sunEnd, level):
-        #base Info
-        self.ID=ID
-        self.Hr=Hr
-        self.email=email
-        self.name=str(name)
-        self.level=level
+        # Availiabity
+        self.monStart = monStart
+        self.monEnd = monEnd
 
-        #Availiabity
-        self.monStart=monStart
-        self.monEnd=monEnd
+        self.tueStart = tueStart
+        self.tueEnd = tueEnd
 
-        self.tueStart=tueStart
-        self.tueEnd=tueEnd
+        self.wedStart = wedStart
+        self.wedEnd = wedEnd
 
-        self.wedStart=wedStart
-        self.wedEnd=wedEnd
+        self.thurStart = thurStart
+        self.thurEnd = thurEnd
 
-        self.thurStart=thurStart
-        self.thurEnd=thurEnd
+        self.friStart = friStart
+        self.friEnd = friEnd
 
-        self.friStart=friStart
-        self.friEnd=friEnd
+        self.satStart = satStart
+        self.satEnd = satEnd
 
-        self.satStart=satStart
-        self.satEnd=satEnd
+        self.sunStart = sunStart
+        self.sunEnd = sunEnd
 
-        self.sunStart=sunStart
-        self.sunEnd=sunEnd
-    
-    #testing
-    
-    #Starts with mon at 0, tue at 1 etc
+    # testing
+
+    # Starts with mon at 0, tue at 1 etc
     def isAvailable(self, weekDay, timeStart, timeEnd):
-        if (weekDay==0):
-            if ((timeStart>=self.monStart) and (timeEnd<=self.monEnd)):
+        if (weekDay == 0):
+            if ((timeStart >= self.monStart) and (timeEnd <= self.monEnd)):
                 return 1
             else:
                 return 0
-        elif (weekDay==1):
-            if ((timeStart>=self.tueStart) and (timeEnd<=self.tueEnd)):
+        elif (weekDay == 1):
+            if ((timeStart >= self.tueStart) and (timeEnd <= self.tueEnd)):
                 return 1
             else:
                 return 0
-        elif (weekDay==2):
-            if ((timeStart>=self.wedStart) and (timeEnd<=self.wedEnd)):
+        elif (weekDay == 2):
+            if ((timeStart >= self.wedStart) and (timeEnd <= self.wedEnd)):
                 return 1
             else:
                 return 0
-        elif (weekDay==3):
-            if ((timeStart>=self.thurStart) and (timeEnd<=self.thurEnd)):
+        elif (weekDay == 3):
+            if ((timeStart >= self.thurStart) and (timeEnd <= self.thurEnd)):
                 return 1
             else:
                 return 0
-        elif (weekDay==4):
-            if ((timeStart>=self.friStart) and (timeEnd<=self.friEnd)):
+        elif (weekDay == 4):
+            if ((timeStart >= self.friStart) and (timeEnd <= self.friEnd)):
                 return 1
             else:
                 return 0
-        elif (weekDay==5):
-            if ((timeStart>=self.satStart) and (timeEnd<=self.satEnd)):
+        elif (weekDay == 5):
+            if ((timeStart >= self.satStart) and (timeEnd <= self.satEnd)):
                 return 1
             else:
                 return 0
-        elif (weekDay==6):
-            if ((timeStart>=self.sunStart) and (timeEnd<=self.sunEnd)):
+        elif (weekDay == 6):
+            if ((timeStart >= self.sunStart) and (timeEnd <= self.sunEnd)):
                 return 1
             else:
                 return 0
-            
+
         return 0
-    
-    
-    #return functions
-    #employee.getID()
+
+    # return functions
+    # employee.getID()
     def getID(self):
-        return self.ID
+        return self.id
 
     def getHours(self):
         return self.Hr
 
     def getEmail(self):
-    
+
         # return string  
-        return self.email 
+        return self.email
 
     def getName(self):
         return self.name
-    
+
     def getLevel(self):
         return self.level
 
@@ -139,27 +135,29 @@ class employee:
 
     def getSunEnd(self):
         return self.sunEnd
-    
+
     def getDictionary(self):
         dictionary = {
-                    "requestHrs" : self.Hr,
-                    "email" : self.email,
-                    "name" : self.name,
-                    "rank" : self.level,
-                    "availability" : [self.monStart, self.monEnd, self.tueStart, self.tueEnd, self.wedStart, self.wedEnd, self.thurStart, self.thurEnd, self.friStart, self.friEnd, self.satStart, self.satEnd, self.sunStart, self.sunEnd]
-                }
+            "requestHrs": self.Hr,
+            "email": self.email,
+            "name": self.name,
+            "rank": self.level,
+            "availability": [self.monStart, self.monEnd, self.tueStart, self.tueEnd, self.wedStart, self.wedEnd,
+                             self.thurStart, self.thurEnd, self.friStart, self.friEnd, self.satStart, self.satEnd,
+                             self.sunStart, self.sunEnd]
+        }
         return dictionary
-    
-    #Set Methods
+
+    # Set Methods
     def setHours(self, newHours):
         self.Hr = newHours
-    
+
     def setEmail(self, newEmail):
         self.email = newEmail
 
     def setName(self, newName):
         self.name = newName
-        
+
     def setLevel(self, newLevel):
         self.level = newLevel
 
@@ -204,26 +202,25 @@ class employee:
 
     def setSunEnd(self, newSunEnd):
         self.sunEnd = newSunEnd
-    
-#Open EmployeeSaveFile
-#read = open("Employees.txt", "r")
-#write = open("Employees.txt", "a")
+
+# Open EmployeeSaveFile
+# read = open("Employees.txt", "r")
+# write = open("Employees.txt", "a")
 
 
-
-#finds and counts number of lines in file
-#file = open("Employees.txt", "r")
-#line_count = 0
-#for line in file:
+# finds and counts number of lines in file
+# file = open("Employees.txt", "r")
+# line_count = 0
+# for line in file:
 #    if line != "\n":
 #        line_count += 1
-#file.close()
+# file.close()
 
-#creates array w/ x indexs based on number of employees found
-#employeesArray = {}
-#employeesArray[line_count//17] = employee(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+# creates array w/ x indexs based on number of employees found
+# employeesArray = {}
+# employeesArray[line_count//17] = employee(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-#for x in range(line_count//17):
+# for x in range(line_count//17):
 #    tempHr = read.readline().splitlines() 
 #    tempEmail = read.readline().splitlines() 
 #    tempName = read.readline().splitlines() 

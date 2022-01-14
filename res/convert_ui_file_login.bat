@@ -1,1 +1,1 @@
-pyside6-uic login.ui > ../src/loginMenu.py
+pyside6-uic login.ui > ../src/login_menu.py
